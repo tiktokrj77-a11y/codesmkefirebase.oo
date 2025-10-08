@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Simpan API IndoSMM ke Firebase</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 2rem;
+      background-color: #f7f7f7;
+      text-align: center;
+    }
+    h1 {
+      color: #5c2cf7;
+    }
+    button {
+      padding: 0.7rem 1.5rem;
+      font-size: 16px;
+      background-color: #5c2cf7;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #4820c4;
+    }
+    p {
+      margin-bottom: 1rem;
+    }
+  </style>
+  <script type="module">
+    // Import Firebase SDK
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.3.0/firebase-app.js";
+    import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.3.0/firebase-analytics.js";
+    import { getDatabase, ref, set } from "https://www.gstatic.com/firebasejs/10.3.0/firebase-database.js";
+
+    // Firebase configuration
+    const firebaseConfig = {
+      apiKey: "AIzaSyBj1P1BlyVgusvpVJ_5TcJdqnffVm6In6E",
+      authDomain: "tokomiken-6fc10.firebaseapp.com",
+      projectId: "tokomiken-6fc10",
+      storageBucket: "tokomiken-6fc10.firebasestorage.app",
+      messagingSenderId: "454827178083",
+      appId: "1:454827178083:web:c83c3627d60942d5af2056",
+      measurementId: "G-18DVM3HBNY"
+    };
+
+    // Initialize Firebase
+    const app = initializeApp(firebaseConfig);
+    const analytics = getAnalytics(app);
+    const db = getDatabase(app);
+
+    // Fungsi untuk menyimpan API IndoSMM
+    function simpanApiIndosmm() {
+      set(ref(db, 'api_keys/indosmm'), {
+        url: 'https://indosmm.id/api/v2',
+        key: '2289abee4234d95fbae66eedaf7e4e72'
+      })
+      .then(() => alert("API IndoSMM tersimpan di Firebase!"))
+      .catch((err) => alert("Gagal menyimpan API: " + err));
+    }
+
+    // Agar tombol bisa memanggil fungsi
+    window.simpanApiIndosmm = simpanApiIndosmm;
+  </script>
+</head>
+<body>
+  <h1>Simpan API IndoSMM</h1>
+  <p>Klik tombol di bawah untuk menyimpan API ke Firebase Realtime Database:</p>
+  <button onclick="simpanApiIndosmm()">Simpan API</button>
+  <p style="margin-top: 2rem; font-size: 0.9rem; color: #555;">
+    Halaman ini bisa dijalankan langsung via <strong>GitHub Pages</strong>.
+  </p>
+</body>
+</html>
